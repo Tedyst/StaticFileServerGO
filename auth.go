@@ -5,6 +5,9 @@ import (
 )
 
 func yubikeyVerify(otp string) bool {
+	if *debug == true {
+		return true
+	}
 	yubiAuth, err := yubigo.NewYubiAuth(*clientID, *clientSecret)
 	if err != nil {
 		return false

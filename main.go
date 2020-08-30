@@ -17,6 +17,9 @@ var (
 	apihost   = flag.String("apihost", "localhost:8080", "API host from which to accept uploads and changes")
 	keyfile   = flag.String("keyFile", "keyfile.txt", "Where are the API keys stored")
 
+	// Debugging mode disables Yubico OTP checking
+	debug = flag.Bool("debug", false, "Enable Debugging Mode")
+
 	clientID     = flag.String("YubicoClientID", "57189", "Yubico Client ID")
 	clientSecret = flag.String("YubicoClientSecret", "", "Yubico Client Secret")
 )

@@ -2,8 +2,9 @@ package main
 
 import (
 	"bytes"
-	"flag"
 	"log"
+
+	"github.com/namsral/flag"
 
 	"github.com/valyala/fasthttp"
 )
@@ -15,6 +16,9 @@ var (
 	dir       = flag.String("dir", "./serve", "Directory to serve static files from")
 	apihost   = flag.String("apihost", "localhost:8080", "API host from which to accept uploads and changes")
 	keyfile   = flag.String("keyFile", "keyfile.txt", "Where are the API keys stored")
+
+	clientID     = flag.String("YubicoClientID", "57189", "Yubico Client ID")
+	clientSecret = flag.String("YubicoClientSecret", "", "Yubico Client Secret")
 )
 
 func main() {

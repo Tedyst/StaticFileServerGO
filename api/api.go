@@ -8,6 +8,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/tedyst/staticfileservergo/config"
+
 	"github.com/tedyst/staticfileservergo/auth"
 
 	"github.com/google/uuid"
@@ -17,7 +19,7 @@ import (
 
 var apiKeys = make(map[string]string)
 
-func apiHandler(ctx *fasthttp.RequestCtx) {
+func APIHandler(ctx *fasthttp.RequestCtx) {
 	switch string(ctx.Path()) {
 	case "/keys/create":
 		createAPIKeys(ctx)
@@ -72,7 +74,7 @@ func createAPIKeys(ctx *fasthttp.RequestCtx) {
 }
 
 func appendToFile(key string, path string) {
-	f, err := os.OpenFile(*keyfile,
+	f, err := os.OpenFile(*config.KeyFile,
 		os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Panic(err)
@@ -87,8 +89,8 @@ func deleteAPIKeys(ctx *fasthttp.RequestCtx) {
 
 }
 
-func initAPIKeys() {
-	f, err := os.Open(*keyfile)
+func InitAPIKeys() {
+	f, err := os.Open(*config.KeyFile)
 	if err != nil {
 		log.Fatal(err)
 	}

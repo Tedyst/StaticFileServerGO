@@ -4,18 +4,16 @@ import (
 	"bytes"
 	"log"
 
+	"github.com/tedyst/staticfileservergo/api"
 	"github.com/tedyst/staticfileservergo/config"
-
-	"github.com/namsral/flag"
 
 	"github.com/valyala/fasthttp"
 )
 
 func main() {
 	// Parse command-line flags.
-	flag.Parse()
-	initAPIKeys()
-
+	config.Init()
+	api.InitAPIKeys()
 	// Setup FS handler
 	fs := &fasthttp.FS{
 		Root:            *config.Dir,
@@ -29,7 +27,7 @@ func main() {
 
 	requestHandler := func(ctx *fasthttp.RequestCtx) {
 		if bytes.Compare(ctx.Host(), []byte(*config.APIHost)) == 0 {
-			apiHandler(ctx)
+			api.APIHandler(ctx)
 		} else {
 			log.Printf("Loaded %q", ctx.URI())
 			fsHandler(ctx)

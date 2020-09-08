@@ -1,6 +1,10 @@
 package config
 
-import "flag"
+import (
+	"log"
+
+	"github.com/namsral/flag"
+)
 
 var (
 	Addr      = flag.String("addr", "localhost:8080", "TCP address to listen to")
@@ -17,3 +21,8 @@ var (
 	ClientSecret   = flag.String("YubicoClientSecret", "", "Yubico Client Secret")
 	AllowedYubikey = flag.String("YubikeyOtpID", "", "Yubikey OTP ID")
 )
+
+func Init() {
+	flag.Parse()
+	log.Print(*AllowedYubikey)
+}

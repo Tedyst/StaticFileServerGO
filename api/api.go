@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"bufio"
@@ -7,6 +7,8 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"github.com/tedyst/staticfileservergo/auth"
 
 	"github.com/google/uuid"
 
@@ -47,7 +49,7 @@ func createAPIKeys(ctx *fasthttp.RequestCtx) {
 		invalidRequest(ctx)
 		return
 	}
-	if !yubikeyVerify(data.OTP) {
+	if !auth.YubikeyVerify(data.OTP) {
 		notAllowed(ctx)
 		return
 	}

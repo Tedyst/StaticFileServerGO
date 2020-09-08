@@ -19,8 +19,10 @@ import (
 
 var apiKeys = make(map[string]string)
 
-func APIHandler(ctx *fasthttp.RequestCtx) {
+func Handler(ctx *fasthttp.RequestCtx) {
 	switch string(ctx.Path()) {
+	case "/auth":
+
 	case "/keys/create":
 		createAPIKeys(ctx)
 	case "/keys/delete":
@@ -89,7 +91,7 @@ func deleteAPIKeys(ctx *fasthttp.RequestCtx) {
 
 }
 
-func InitAPIKeys() {
+func Init() {
 	f, err := os.Open(*config.KeyFile)
 	if err != nil {
 		log.Fatal(err)

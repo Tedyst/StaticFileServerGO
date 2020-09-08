@@ -13,7 +13,7 @@ import (
 func main() {
 	// Parse command-line flags.
 	config.Init()
-	api.InitAPIKeys()
+	api.Init()
 	// Setup FS handler
 	fs := &fasthttp.FS{
 		Root:            *config.Dir,
@@ -27,7 +27,7 @@ func main() {
 
 	requestHandler := func(ctx *fasthttp.RequestCtx) {
 		if bytes.Compare(ctx.Host(), []byte(*config.APIHost)) == 0 {
-			api.APIHandler(ctx)
+			api.Handler(ctx)
 		} else {
 			log.Printf("Loaded %q", ctx.URI())
 			fsHandler(ctx)
